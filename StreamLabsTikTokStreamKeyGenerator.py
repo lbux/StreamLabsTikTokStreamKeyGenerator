@@ -5,7 +5,6 @@ import tkinter as tk
 from tkinter import messagebox
 import webbrowser
 from Stream import Stream
-from TokenRetriever import TokenRetriever
 
 
 def load_config():
@@ -136,38 +135,20 @@ def load_token():
     messagebox.showinfo("API Token", "No API Token found locally. A webpage will now open to allow you to login into your TikTok account.")
     return None
 
-def fetch_online_token():
-    retriever = TokenRetriever()
-    token = retriever.retrieve_token()
-    if token:
-        token_entry.delete(0, tk.END)
-        token_entry.insert(0, token)
-        token_entry.config(show='*')
-        global stream
-        stream = Stream(token)
-        stream_title_entry.config(state=tk.NORMAL)
-        game_category_entry.config(state=tk.NORMAL)
-        go_live_button.config(state=tk.NORMAL)
-        fetch_game_mask_id(game_category_entry.get())
-    else:
-        messagebox.showerror("Error", "Failed to obtain token online.")
 
 def populate_token():
     global stream
     token = load_token()
-    if not token:
-        fetch_online_token()  # If no local token, try fetching online
-    else:
-        token_entry.delete(0, tk.END)
-        token_entry.insert(0, token)
-        token_entry.config(show='*')
-        stream = Stream(token)
-        load_account_info()
-        stream_title_entry.config(state=tk.NORMAL)
-        game_category_entry.config(state=tk.NORMAL)
-        go_live_button.config(state=tk.NORMAL)
-        # Fetch game_mask_id after token is loaded
-        fetch_game_mask_id(game_category_entry.get())
+    token_entry.delete(0, tk.END)
+    token_entry.insert(0, token)
+    token_entry.config(show='*')
+    stream = Stream(token)
+    load_account_info()
+    stream_title_entry.config(state=tk.NORMAL)
+    game_category_entry.config(state=tk.NORMAL)
+    go_live_button.config(state=tk.NORMAL)
+    # Fetch game_mask_id after token is loaded
+    fetch_game_mask_id(game_category_entry.get())
 
 def toggle_token_visibility():
     if token_entry.cget('show') == '':

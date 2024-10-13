@@ -49,11 +49,11 @@ jobs:
       run: |
         if ($env:Release -eq 'Release') {
           sccache --show-stats
-          nuitka --windows-console-mode=disable --msvc=latest --assume-yes-for-downloads --onefile --follow-imports --enable-plugin=tk-inter --include-data-file=.seleniumwire/seleniumwire-ca.pem=seleniumwire/.seleniumwire/seleniumwire-ca.pem --include-data-file=.seleniumwire/seleniumwire-dhparam.pem=seleniumwire/.seleniumwire/seleniumwire-dhparam.pem StreamLabsTikTokStreamKeyGenerator.py
+          nuitka --windows-console-mode=disable --msvc=latest --assume-yes-for-downloads --onefile --follow-imports --enable-plugin=tk-inter StreamLabsTikTokStreamKeyGenerator.py
           sccache --show-stats
         } else {
           sccache --show-stats
-          nuitka --msvc=latest --assume-yes-for-downloads --onefile --follow-imports --enable-plugin=tk-inter --include-data-file=.seleniumwire/seleniumwire-ca.pem=seleniumwire/.seleniumwire/seleniumwire-ca.pem --include-data-file=.seleniumwire/seleniumwire-dhparam.pem=seleniumwire/.seleniumwire/seleniumwire-dhparam.pem StreamLabsTikTokStreamKeyGenerator.py
+          nuitka --msvc=latest --assume-yes-for-downloads --onefile --follow-imports --enable-plugin=tk-inter StreamLabsTikTokStreamKeyGenerator.py
           sccache --show-stats
         }
 
@@ -99,7 +99,7 @@ jobs:
     - name: Build Executable
       run: |
         export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
-        arch -${{ matrix.architecture }} nuitka --windows-console-mode=disable --assume-yes-for-downloads --standalone --macos-create-app-bundle --macos-target-arch=${{ matrix.architecture }} --onefile --follow-imports --enable-plugin=tk-inter --include-data-file=.seleniumwire/seleniumwire-ca.pem=seleniumwire/.seleniumwire/seleniumwire-ca.pem --include-data-file=.seleniumwire/seleniumwire-dhparam.pem=seleniumwire/.seleniumwire/seleniumwire-dhparam.pem StreamLabsTikTokStreamKeyGenerator.py
+        arch -${{ matrix.architecture }} nuitka --windows-console-mode=disable --assume-yes-for-downloads --standalone --macos-create-app-bundle --macos-target-arch=${{ matrix.architecture }} --onefile --follow-imports --enable-plugin=tk-inter StreamLabsTikTokStreamKeyGenerator.py
 
     - name: Remove quarantine attribute
       run: xattr -dr com.apple.quarantine StreamLabsTikTokStreamKeyGenerator.app
@@ -148,11 +148,11 @@ jobs:
       run: |
         if [ "$Release" == "Release" ]; then
           ccache --show-stats
-          nuitka --standalone --onefile --follow-imports --enable-plugin=tk-inter --include-data-dir=.seleniumwire=seleniumwire StreamLabsTikTokStreamKeyGenerator.py
+          nuitka --standalone --onefile --follow-imports --enable-plugin=tk-inter StreamLabsTikTokStreamKeyGenerator.py
           ccache --show-stats
         else
           ccache --show-stats
-          nuitka --standalone --onefile --follow-imports --enable-plugin=tk-inter --include-data-dir=.seleniumwire=seleniumwire StreamLabsTikTokStreamKeyGenerator.py
+          nuitka --standalone --onefile --follow-imports --enable-plugin=tk-inter StreamLabsTikTokStreamKeyGenerator.py
           ccache --show-stats
         fi
 
